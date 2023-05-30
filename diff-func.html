@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        const obj1 = { name: 'zhang', age: 0, class: '8', tall: 160 }
+        const obj2 = { name: 'zhang', age: 30, work: 'eg', tall: 168 }
+
+        function fromatNil (val) {
+            if (val === undefined || val === null) {
+                return ''
+            }
+            return val.toString()
+        }
+
+        function diffObj (o1, o2, m) {
+            const result = []
+            const whiteList = Object.keys(m)
+            const keys = Object.keys([
+                ...Object.keys(o1), ...Object.keys(o2)
+            ].filter(key => whiteList.includes(key)).reduce((result, current) => {
+                result[current] = ''
+                return result
+            }, {}))
+            for (let i = 0; i < keys.length; i++) {
+                const key = keys[i], keyName = m[key] || key
+                const v1 = fromatNil(o1[key]), v2 = fromatNil(o2[key])
+                if (v1 === v2) {
+                    continue
+                } else if (v1 === '') {
+                    result.push('完善' + keyName + '为' + v2)
+                } else if (v2 === '') {
+                    result.push('移除' + keyName + '信息')
+                } else {
+                    result.push(keyName + ':由' + v1 + '变更为' + v2)
+                }
+            }
+            return result.join('; ')
+        }
+
+        console.log(diffObj(obj1, obj2, { name: '名称', age: '年龄', work: '工作', class: '年级' }))
+    </script>
+</body>
+</html>
