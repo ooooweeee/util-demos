@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      ul {
+        display: inline-block;
+      }
+    </style>
+  </head>
+  <body>
+    <button onclick="captureNode()">截图</button>
+    <ul>
+      <li>这是一个稍微复杂的node节点</li>
+      <li>第二行</li>
+    </ul>
+    <script src="./libs/html2canvas.js"></script>
+    <script>
+      function captureNode() {
+        html2canvas(document.querySelector("ul")).then(function (canvas) {
+          const a = document.createElement("a");
+          a.href = canvas.toDataURL("image/png");
+          a.download = "screenshot.png";
+          a.click();
+        });
+      }
+    </script>
+  </body>
+</html>
