@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <textarea cols="30" rows="10"></textarea>
+    <button onclick="exportTxt()">导出</button>
+    <script>
+      const txt = document.querySelector("textarea");
+      function exportTxt() {
+        const contxt = new Blob([txt.value], {
+          type: "text/plain;charset=utf-8",
+        });
+
+        const dom = document.createElement("a");
+        dom.href = URL.createObjectURL(contxt);
+        dom.download = "export.txt";
+        dom.click();
+      }
+    </script>
+  </body>
+</html>
