@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      .container {
+        position: relative;
+        width: 600px;
+        height: 400px;
+        background-image: url(./public/bg.jpg);
+        background-size: cover;
+      }
+      .container::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        right: 0;
+        background: inherit;
+        clip-path: polygon(225px 50px, 320px 50px, 320px 90%, 225px 90%);
+        filter: url(#fractal);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container"></div>
+    <svg>
+      <filter
+        id="fractal"
+        filterUnits="objectBoundingBox"
+        x="0%"
+        y="0%"
+        width="100%"
+        height="100%"
+      >
+        <feTurbulence
+          id="turbulence"
+          type="fractalNoise"
+          baseFrequency="0.005 0.005"
+          numOctaves="10"
+        >
+          <animate
+            attributeName="baseFrequency"
+            dur="60s"
+            values="0.005 0.005;0.003 0.03;0.005 0.005"
+            repeatCount="indefinite"
+          />
+        </feTurbulence>
+        <feDisplacementMap in="SourceGraphic" scale="15"></feDisplacementMap>
+      </filter>
+    </svg>
+    <script></script>
+  </body>
+</html>
